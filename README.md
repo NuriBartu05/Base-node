@@ -162,6 +162,37 @@ docker ps -a
 
 ---
 
+## **Sunucu Reboot Sonrası Docker Container'ın Yeniden Başlatılmasını Sağlama**
+
+Sunucunun reboot olması veya terminalden çıkman durumunda Docker container'larının çalışmaya devam etmesini sağlamak için **restart policy** kullanabilirsin.
+
+#### **Docker Compose Kullanıyorsan:**
+
+`docker-compose.yml` dosyana şu satırı ekleyerek, container'ların reboot sonrası otomatik olarak yeniden başlatılmasını sağlayabilirsin:
+
+```yaml
+restart: unless-stopped
+```
+
+Bu ayar, container'ın sunucu reboot olduktan sonra otomatik olarak yeniden başlatılmasını sağlar. Ancak, container manuel olarak durdurulmadığı sürece yeniden başlatılmaya devam eder.
+
+#### **Docker Komutuyla Container Başlatırken:**
+
+Eğer Docker komutuyla container'ı başlatıyorsan, `--restart` parametresi ile bunu ayarlayabilirsin:
+
+```bash
+docker run --restart unless-stopped <image_name>
+```
+
+### **Restart Policy Seçenekleri:**
+- **unless-stopped**: Container, sunucu reboot olduktan sonra otomatik olarak yeniden başlatılır. Manuel olarak durdurulmadığı sürece çalışmaya devam eder.
+- **always**: Container her durumda yeniden başlatılır (manueller dahil).
+- **no**: Docker container'ı reboot sonrası yeniden başlamaz.
+
+Bu ayar ile, Base node'unun sunucu reboot olsa bile çalışmaya devam etmesini sağlayabilirsin.
+
+---
+
 ## **Ekstra Notlar:**
 
 - **Snapshot ve Senkronizasyon**: Snapshot, Base node'unu hızlı bir şekilde senkronize etmek için kullanılır. Eğer snapshot'tan sonra herhangi bir blok kaybı yaşarsan, Geth otomatik olarak en son blokları senkronize eder.

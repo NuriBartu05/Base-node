@@ -1,6 +1,3 @@
-
----
-
 # **Base Node Kurulumu: Geth ile Snapshot Kullanarak Başlatma**
 
 Bu rehber, **Base ağı** için **Geth** kullanarak **snapshot üzerinden node** kurulumunu adım adım açıklamaktadır. Snapshot, senkronizasyon sürecini hızlandırır ve Base ağı üzerinde işlem yapmaya başlamanızı sağlar.
@@ -175,5 +172,3 @@ docker ps -a
 ### **Sonuç**
 
 Bu rehberle, Base ağı üzerinde **Geth** ile snapshot kullanarak **Base node**'unu sıfırdan kurmuş olduk. Şimdi, Base ağına ait blok verilerine hızlı bir şekilde erişebilir ve işlemler yapabilirsin. Eğer takıldığın bir nokta olursa, GitHub issues veya topluluk forumlarından destek alabilirsin.
-
----

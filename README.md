@@ -1,4 +1,3 @@
-# Base-node for Hyperlane
 
 ---
 
@@ -128,6 +127,41 @@ curl http://<Sunucu_IP>:8545
 ```
 
 Sunucu IP’sini kendi sunucunun IP adresiyle değiştirmeyi unutma. Eğer her şey doğru şekilde çalışıyorsa, RPC'den gelen yanıtı görmelisin.
+
+---
+
+## **Senkronizasyon Durumunu Kontrol Etme**
+
+Node'un senkronizasyon durumunu kontrol etmek için şu komutu kullanabilirsin. Bu komut, **optimism_syncStatus** RPC metodunu kullanarak L2 senkronizasyon durumunu kontrol eder.
+
+```bash
+command -v jq  &> /dev/null || { echo "jq is not installed" 1>&2 ; }
+echo Latest synced block behind by: \
+$((($( date +%s )-\
+$( curl -s -d '{"id":0,"jsonrpc":"2.0","method":"optimism_syncStatus"}' -H "Content-Type: application/json" http://localhost:7545 |
+   jq -r .result.unsafe_l2.timestamp))/60)) minutes
+```
+
+Bu komut, **optimism_syncStatus** RPC çağrısını yaparak, en son senkronize edilen blok ile şu anki zaman arasındaki farkı hesaplar. Çıktı şu şekilde olabilir:
+
+```
+Latest synced block behind by: 30 minutes
+```
+
+Bu, senkronizasyonun şu anda 30 dakika geride olduğunu gösterir.
+
+---
+
+## **Node'un Çalışıp Çalışmadığını Kontrol Etme**
+
+Node'un çalışıp çalışmadığını kontrol etmek için Docker komutlarıyla container durumunu kontrol edebilirsin:
+
+```bash
+# Docker container'larının durumunu kontrol et
+docker ps -a
+
+# Eğer node çalışıyorsa, container'ı görmelisin.
+```
 
 ---
 

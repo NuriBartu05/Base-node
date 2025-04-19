@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # NuriBartu Base Node Kurulum Scripti
-# Bu script, Base ağına Geth node kurulumu yapar ve snapshot kullanarak hızlı başlatır.
+# Bu script, Base ağına Geth node kurulumu yapar ve hızlı senkronizasyon (snapshot kullanmadan) başlatır.
 
 # Renklendirme
 GREEN="\033[0;32m"
@@ -36,12 +36,6 @@ function setup_node() {
   mkdir -p /opt/base-node/data
   cd /opt/base-node || exit
 
-  # Snapshot indir ve cikart
-  echo "Snapshot indiriliyor..."
-  wget https://mainnet-full-snapshots.base.org/$(curl -s https://mainnet-full-snapshots.base.org/latest) -O snapshot.tar.gz
-  echo "Snapshot cikartiliyor..."
-  tar -xzvf snapshot.tar.gz -C /opt/base-node/data
-
   # Docker Compose dosyasi olustur
   echo "Docker Compose dosyasi olusturuluyor..."
   cat <<EOF > docker-compose.yml
@@ -62,7 +56,7 @@ services:
       --http.corsdomain "*"
       --http.vhosts "*"
       --syncmode full
-      --gcmode=archive
+      --gcmode full
       --rollup.sequencerhttp=https://mainnet-sequencer.base.org
       --rollup.disabletxpoolgossip=true
       --nodiscover

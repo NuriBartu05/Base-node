@@ -203,3 +203,40 @@ Bu ayar ile, Base node'unun sunucu reboot olsa bile çalışmaya devam etmesini 
 ### **Sonuç**
 
 Bu rehberle, Base ağı üzerinde **Geth** ile snapshot kullanarak **Base node**'unu sıfırdan kurmuş olduk. Şimdi, Base ağına ait blok verilerine hızlı bir şekilde erişebilir ve işlemler yapabilirsin. Eğer takıldığın bir nokta olursa, GitHub issues veya topluluk forumlarından destek alabilirsin.
+
+
+
+
+---
+
+1. Scripti GitHub'dan indir:
+
+curl -O https://raw.githubusercontent.com/NuriBartu05/Base-node/main/nuribartu-base.sh
+
+2. Çalıştırılabilir hale getir:
+
+chmod +x nuribartu-base.sh
+
+3. Scripti başlat:
+
+./nuribartu-base.sh
+
+
+---
+
+Not:
+
+Script çalıştığında senden IP adresini isteyecek ve ardından aşağıdaki menü çıkacak:
+
+[1] Node Kurulumu
+[2] Node Sağlık Kontrol Komutları
+
+Kurulum için: 1
+Sağlık komutlarını görmek için: 2 yazman yeterli.
+
+
+---
+
+
+
+

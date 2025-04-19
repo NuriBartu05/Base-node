@@ -207,60 +207,55 @@ Bu rehberle, Base ağı üzerinde **Geth** ile snapshot kullanarak **Base node**
 
 
 
----
 
-NuriBartu Base Node Kurulum Scripti
+
+# NuriBartu Base Node Kurulum Scripti
 
 Bu script, Base ağı için bir node kurmanı ve yönetmeni sağlar. Script GitHub üzerinden otomatik olarak indirilip çalıştırılabilir.
 
-Kurulum
+## Kurulum
 
 Terminale aşağıdaki adımları sırasıyla uygulayın:
 
-1. Scripti GitHub üzerinden indir
+### 1. Scripti GitHub üzerinden indir
 
+```bash
 curl -O https://raw.githubusercontent.com/NuriBartu05/Base-node/main/nuribartu-base.sh
+```
 
-2. Scripti çalıştırılabilir hale getir
+### 2. Scripti çalıştırılabilir hale getir
 
+```bash
 chmod +x nuribartu-base.sh
+```
 
-3. Scripti başlat
+### 3. Scripti başlat
 
+```bash
 ./nuribartu-base.sh
+```
 
-
----
-
-Script Açıldığında
+## Script Açıldığında
 
 Script başlatıldığında aşağıdaki gibi bir menü ile karşılaşırsınız:
 
+```
 [1] Node Kurulumu
 [2] Node Sağlık Kontrol Komutları
+```
 
-Seçenekler:
+### Seçenekler
 
-1 → Sunucuya Base node kurulumunu yapar. Snapshot indirir, yapılandırmaları yapar ve Docker üzerinden node'u başlatır.
+- **1** → Sunucuya Base node kurulumunu yapar. Snapshot indirir, yapılandırmaları yapar ve Docker üzerinden node'u başlatır.
+- **2** → Node'un senkronize olup olmadığını, en son blok numarasını ve peer sayısını kontrol etmek için kullanabileceğiniz komutları gösterir.
 
-2 → Node'un senkronize olup olmadığını, en son blok numarasını ve peer sayısını kontrol etmek için kullanabileceğiniz komutları gösterir.
+## Gereksinimler
 
-
-
----
-
-Gereksinimler
-
-Ubuntu 20.04 veya 22.04 yüklü bir sunucu
-
-Docker ve Docker Compose (script tarafından kuruluyor)
-
-Root erişimi veya sudo yetkisi
-
-
+- Ubuntu 20.04 veya 22.04 yüklü bir sunucu
+- Docker ve Docker Compose (script tarafından otomatik olarak kuruluyor)
+- Root erişimi veya `sudo` yetkisi
 
 ---
-
 
 
 

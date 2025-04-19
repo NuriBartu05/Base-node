@@ -29,15 +29,13 @@ function install_dependencies() {
 function setup_node() {
   echo -e "${GREEN}Node kurulumu basliyor...${NC}"
 
-  # Screen baslat
-  screen -S base-node -dm bash -c '
-    # Klasor olustur
-    mkdir -p /opt/base-node/data
-    cd /opt/base-node || exit
+  # Klasor olustur
+  mkdir -p /opt/base-node/data
+  cd /opt/base-node || exit
 
-    # Docker Compose dosyasi olustur
-    echo "Docker Compose dosyasi olusturuluyor..."
-    cat <<EOF > docker-compose.yml
+  # Docker Compose dosyasi olustur
+  echo "Docker Compose dosyasi olusturuluyor..."
+  cat <<EOF > docker-compose.yml
 version: "3.8"
 services:
   op-geth:
@@ -61,10 +59,11 @@ services:
       --nodiscover
 EOF
 
-    # Node'u baslat
+  # Screen baslat
+  echo "Screen icinde node baslatiliyor..."
+  screen -S base-node -dm bash -c '
+    cd /opt/base-node
     docker-compose up -d
-
-    # Sonsuz bekleme koy, screen kapanmasin
     exec bash
   '
 

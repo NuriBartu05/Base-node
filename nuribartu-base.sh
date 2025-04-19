@@ -31,14 +31,13 @@ function setup_node() {
 
   # Screen baslat
   screen -S base-node -dm bash -c '
+    # Klasor olustur
+    mkdir -p /opt/base-node/data
+    cd /opt/base-node || exit
 
-  # Klasor olustur
-  mkdir -p /opt/base-node/data
-  cd /opt/base-node || exit
-
-  # Docker Compose dosyasi olustur
-  echo "Docker Compose dosyasi olusturuluyor..."
-  cat <<EOF > docker-compose.yml
+    # Docker Compose dosyasi olustur
+    echo "Docker Compose dosyasi olusturuluyor..."
+    cat <<EOF > docker-compose.yml
 version: "3.8"
 services:
   op-geth:
@@ -62,13 +61,12 @@ services:
       --nodiscover
 EOF
 
-  # Node'u baslat
-  echo "Docker container baslatiliyor..."
-  docker-compose up -d
+    # Node'u baslat
+    docker-compose up -d
 
-  # Sonsuz bekleme koy, screen kapanmasin
-  exec bash
-'
+    # Sonsuz bekleme koy, screen kapanmasin
+    exec bash
+  '
 
   echo -e "${GREEN}Node kurulumu tamamlandi!${NC}"
   echo "RPC kontrol etmek icin: curl http://<Sunucu_IP>:8545"

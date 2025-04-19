@@ -204,25 +204,63 @@ Bu ayar ile, Base node'unun sunucu reboot olsa bile çalışmaya devam etmesini 
 
 Bu rehberle, Base ağı üzerinde **Geth** ile snapshot kullanarak **Base node**'unu sıfırdan kurmuş olduk. Şimdi, Base ağına ait blok verilerine hızlı bir şekilde erişebilir ve işlemler yapabilirsin. Eğer takıldığın bir nokta olursa, GitHub issues veya topluluk forumlarından destek alabilirsin.
 
-# Base Node Kurulum Scripti (GitHub üzerinden çalıştırmak için)
 
-# 1. Scripti GitHub'dan indir:
+
+
+---
+
+NuriBartu Base Node Kurulum Scripti
+
+Bu script, Base ağı için bir node kurmanı ve yönetmeni sağlar. Script GitHub üzerinden otomatik olarak indirilip çalıştırılabilir.
+
+Kurulum
+
+Terminale aşağıdaki adımları sırasıyla uygulayın:
+
+1. Scripti GitHub üzerinden indir
+
 curl -O https://raw.githubusercontent.com/NuriBartu05/Base-node/main/nuribartu-base.sh
 
-# 2. Scripti çalıştırılabilir hale getir:
+2. Scripti çalıştırılabilir hale getir
+
 chmod +x nuribartu-base.sh
 
-# 3. Scripti başlat:
+3. Scripti başlat
+
 ./nuribartu-base.sh
 
-# Script çalıştığında seni şu menü karşılar:
-# [1] Node Kurulumu
-# [2] Node Sağlık Kontrol Komutları
 
-# IP adresini girdikten sonra:
-# 1 -> Node kurulumu başlar
-# 2 -> Node sağlık kontrol komutlarını gösterir
+---
 
-# Herhangi bir hata alırsan terminal çıktısıyla birlikte sorun – yardımcı olayım!
+Script Açıldığında
+
+Script başlatıldığında aşağıdaki gibi bir menü ile karşılaşırsınız:
+
+[1] Node Kurulumu
+[2] Node Sağlık Kontrol Komutları
+
+Seçenekler:
+
+1 → Sunucuya Base node kurulumunu yapar. Snapshot indirir, yapılandırmaları yapar ve Docker üzerinden node'u başlatır.
+
+2 → Node'un senkronize olup olmadığını, en son blok numarasını ve peer sayısını kontrol etmek için kullanabileceğiniz komutları gösterir.
+
+
+
+---
+
+Gereksinimler
+
+Ubuntu 20.04 veya 22.04 yüklü bir sunucu
+
+Docker ve Docker Compose (script tarafından kuruluyor)
+
+Root erişimi veya sudo yetkisi
+
+
+
+---
+
+
 
 

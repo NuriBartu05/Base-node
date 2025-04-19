@@ -10,44 +10,47 @@ NC="\033[0m"
 # Fonksiyonlar
 function banner() {
   echo -e "${GREEN}"
-echo "_____   ______  ___________________________________________________  __"
-echo "___  | / /_  / / /__  __ \___  _/__  __ )__    |__  __ \__  __/_  / / /"
-echo "__   |/ /_  / / /__  /_/ /__  / __  __  |_  /| |_  /_/ /_  /  _  / / / "
-echo "_  /|  / / /_/ / _  _, _/__/ /  _  /_/ /_  ___ |  _, _/_  /   / /_/ /  "
-echo "/_/ |_/  \____/  /_/ |_| /___/  /_____/ /_/  |_/_/ |_| /_/    \____/   "
-echo ""
+  echo "_____   ______  ___________________________________________________  __"
+  echo "___  | / /_  / / /__  __ \___  _/__  __ )__    |__  __ \__  __/_  / / /"
+  echo "__   |/ /_  / / /__  /_/ /__  / __  __  |_  /| |_  /_/ /_  /  _  / / / "
+  echo "_  /|  / / /_/ / _  _, _/__/ /  _  /_/ /_  ___ |  _, _/_  /   / /_/ /  "
+  echo "/_/ |_/  \____/  /_/ |_| /___/  /_____/ /_/  |_/_/ |_| /_/    \____/   "
+  echo ""
   echo -e "${NC}"
 }
 
 function install_dependencies() {
   echo -e "${GREEN}Sunucu guncelleniyor ve gerekli paketler kuruluyor...${NC}"
   sudo apt update && sudo apt upgrade -y
-  sudo apt install -y curl git docker.io docker-compose jq
+  sudo apt install -y curl git docker.io docker-compose jq screen
   sudo systemctl enable --now docker
 }
 
 function setup_node() {
   echo -e "${GREEN}Node kurulumu basliyor...${NC}"
 
+  # Screen baslat
+  screen -S base-node -dm bash -c '
+
   # Klasor olustur
   mkdir -p /opt/base-node/data
   cd /opt/base-node || exit
 
   # Snapshot indir ve cikart
-  echo -e "${GREEN}Snapshot indiriliyor...${NC}"
+  echo "Snapshot indiriliyor..."
   wget https://mainnet-full-snapshots.base.org/$(curl -s https://mainnet-full-snapshots.base.org/latest) -O snapshot.tar.gz
-  echo -e "${GREEN}Snapshot cikartiliyor...${NC}"
+  echo "Snapshot cikartiliyor..."
   tar -xzvf snapshot.tar.gz -C /opt/base-node/data
 
   # Docker Compose dosyasi olustur
-  echo -e "${GREEN}Docker Compose dosyasi olusturuluyor...${NC}"
+  echo "Docker Compose dosyasi olusturuluyor..."
   cat <<EOF > docker-compose.yml
-version: '3.8'
+version: "3.8"
 services:
   op-geth:
     image: ghcr.io/base-org/op-geth
     ports:
-      - '8545:8545'
+      - "8545:8545"
     volumes:
       - ./data:/data
     restart: unless-stopped
@@ -56,8 +59,8 @@ services:
       --http
       --http.addr 0.0.0.0
       --http.api eth,net,web3
-      --http.corsdomain '*'
-      --http.vhosts '*'
+      --http.corsdomain "*"
+      --http.vhosts "*"
       --syncmode full
       --gcmode=archive
       --rollup.sequencerhttp=https://mainnet-sequencer.base.org
@@ -66,8 +69,12 @@ services:
 EOF
 
   # Node'u baslat
-  echo -e "${GREEN}Docker container baslatiliyor...${NC}"
+  echo "Docker container baslatiliyor..."
   docker-compose up -d
+
+  # Sonsuz bekleme koy, screen kapanmasin
+  exec bash
+'
 
   echo -e "${GREEN}Node kurulumu tamamlandi!${NC}"
   echo "RPC kontrol etmek icin: curl http://<Sunucu_IP>:8545"
@@ -114,4 +121,3 @@ case $choice in
     exit 1
     ;;
 esac
-
